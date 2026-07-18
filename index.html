@@ -141,20 +141,24 @@
          style="display: none;" 
          class="w-full max-w-md mx-auto bg-[var(--bg-light)] shadow-2xl min-h-screen relative">
         
-        <!-- HERO -->
+        <!-- HERO (PERUBAHAN GRADASI DI SINI) -->
         <section class="min-h-screen flex flex-col justify-center items-center text-center p-8 bg-cover bg-center relative"
                  style="background-image: url('assets/images/monokrom%20bunga.jpg');">
-            <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-[var(--bg-light)]"></div>
+            <!-- Gradien dari gelap (atas) -> memudar jadi warna background (tengah) -> warna background solid (bawah) -->
+            <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-[var(--bg-light)]/80 to-[var(--bg-light)]"></div>
+            
+            <!-- Tambahan tekstur tipis agar menyatu dengan seksi profil di bawahnya -->
+            <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/rice-paper-2.png')] opacity-50 mix-blend-multiply"></div>
             
             <div class="relative z-10 mt-auto pb-24 w-full" data-aos="fade-up" data-aos-duration="1000">
                 <p class="text-xs tracking-[0.2em] mb-2 uppercase font-semibold text-[var(--accent-main)]">We Are Getting Married</p>
-                <h1 class="text-5xl mb-4 text-[var(--bg-main)] drop-shadow-sm font-serif">Roymon & Gatari</h1>
+                <h1 class="text-5xl mb-4 text-[var(--bg-main)] font-serif">Roymon & Gatari</h1>
                 <p class="text-sm font-bold tracking-[0.2em] mb-8 text-[var(--bg-main)]">15 . 08 . 2026</p>
             </div>
         </section>
 
         <!-- PROFIL MEMPELAI -->
-        <section class="py-16 px-6 bg-[url('https://www.transparenttextures.com/patterns/rice-paper-2.png')] text-center">
+        <section class="py-12 px-6 bg-[url('https://www.transparenttextures.com/patterns/rice-paper-2.png')] text-center">
             <p class="text-sm text-[var(--text-muted)] mb-8" data-aos="fade-up">Maha Suci Allah yang telah menciptakan makhluk-Nya berpasang-pasangan. Ya Allah, perkenankanlah kami merangkai kasih sayang yang Kau ciptakan di antara putra-putri kami:</p>
             
             <div class="flex flex-col items-center mb-8" data-aos="fade-up">
@@ -195,7 +199,6 @@
             <p class="text-xs tracking-[0.2em] uppercase text-[var(--accent-main)] mb-2" data-aos="fade-up">Menuju Hari Bahagia</p>
             <h2 class="text-2xl font-serif mb-8 text-white" data-aos="fade-up">Hitung Mundur</h2>
             
-            <!-- Hapus backdrop-blur biar scroll ringan -->
             <div class="flex gap-2 sm:gap-4 justify-center" data-aos="zoom-in">
                 <div class="bg-black/60 rounded-lg p-3 w-16 sm:w-20 border border-[var(--accent-main)] shadow-lg">
                     <span class="text-2xl sm:text-3xl font-serif block text-[var(--accent-light)]" x-text="countdown.days">0</span>
@@ -255,7 +258,7 @@
             </a>
         </section>
 
-        <!-- FOTO GALERY & LIGHTBOX (Lazy load added biar gak ngelag) -->
+        <!-- FOTO GALERY & LIGHTBOX -->
         <section class="py-16 px-1 bg-[var(--bg-alt)]">
             <p class="text-xs tracking-[0.2em] uppercase text-[var(--accent-main)] mb-2 text-center" data-aos="fade-up">Our Memories</p>
             <h2 class="text-3xl font-serif text-center mb-8 text-[var(--bg-main)]" data-aos="fade-up">Galeri Kami</h2>
@@ -279,7 +282,7 @@
             </div>
         </section>
 
-        <!-- WEDDING GIFT (SWEETALERT POPUP) -->
+        <!-- WEDDING GIFT -->
         <section class="py-16 px-6 text-center">
             <h2 class="text-3xl font-serif mb-4 text-[var(--bg-main)]" data-aos="fade-up">Wedding Gift</h2>
             <p class="text-sm text-[var(--text-muted)] mb-8" data-aos="fade-up">Doa restu Anda merupakan karunia yang sangat berarti bagi kami. Namun, jika Anda bermaksud memberikan tanda kasih, Anda dapat mengirimkannya melalui:</p>
@@ -289,20 +292,18 @@
             </button>
         </section>
 
-        <!-- RSVP / KONFIRMASI KEHADIRAN & UCAPAN -->
-        <section class="py-16 px-6 bg-[url('https://www.transparenttextures.com/patterns/rice-paper-2.png')]">
-            <h2 class="text-3xl font-serif text-center mb-8 text-[var(--bg-main)]" data-aos="fade-up">RSVP & Ucapan</h2>
-            
-            <div class="bg-white p-6 rounded-xl shadow-lg border border-[var(--border-color)]" data-aos="fade-up">
-                <form @submit.prevent="alert('Form di-submit! (Siap disambung ke Google Sheet)')">
+        <div class="bg-white p-6 rounded-xl shadow-lg border border-[var(--border-color)]" data-aos="fade-up">
+                <!-- FORM RSVP -->
+                <form @submit.prevent="submitForm">
+                    <!-- (Isi form kamu tetap sama seperti yang terakhir kali...) -->
                     <div class="mb-4">
                         <label class="block text-xs font-bold text-[var(--bg-main)] mb-2 uppercase tracking-wide">Nama Tamu</label>
-                        <input type="text" x-model="formNama" class="w-full p-3 border border-[var(--border-color)] rounded-md bg-[var(--bg-light)] focus:outline-none focus:border-[var(--accent-main)] focus:ring-1 focus:ring-[var(--accent-main)]" required>
+                        <input type="text" x-model="form.nama" class="w-full p-3 border border-[var(--border-color)] rounded-md bg-[var(--bg-light)] focus:outline-none focus:border-[var(--accent-main)] focus:ring-1 focus:ring-[var(--accent-main)]" required>
                     </div>
                     
                     <div class="mb-4">
                         <label class="block text-xs font-bold text-[var(--bg-main)] mb-2 uppercase tracking-wide">Konfirmasi Kehadiran</label>
-                        <select class="w-full p-3 border border-[var(--border-color)] rounded-md bg-[var(--bg-light)] focus:outline-none focus:border-[var(--accent-main)] focus:ring-1 focus:ring-[var(--accent-main)]">
+                        <select x-model="form.kehadiran" class="w-full p-3 border border-[var(--border-color)] rounded-md bg-[var(--bg-light)] focus:outline-none focus:border-[var(--accent-main)] focus:ring-1 focus:ring-[var(--accent-main)]">
                             <option value="Hadir">Ya, Saya akan hadir</option>
                             <option value="Tidak">Maaf, tidak bisa hadir</option>
                         </select>
@@ -310,15 +311,49 @@
                     
                     <div class="mb-6">
                         <label class="block text-xs font-bold text-[var(--bg-main)] mb-2 uppercase tracking-wide">Ucapan & Doa Harapan</label>
-                        <textarea rows="4" class="w-full p-3 border border-[var(--border-color)] rounded-md bg-[var(--bg-light)] focus:outline-none focus:border-[var(--accent-main)] focus:ring-1 focus:ring-[var(--accent-main)]" placeholder="Tulis ucapan dan doa terbaik Anda..."></textarea>
+                        <textarea rows="4" x-model="form.ucapan" class="w-full p-3 border border-[var(--border-color)] rounded-md bg-[var(--bg-light)] focus:outline-none focus:border-[var(--accent-main)] focus:ring-1 focus:ring-[var(--accent-main)]" placeholder="Tulis ucapan dan doa terbaik Anda..." required></textarea>
                     </div>
                     
-                    <button type="submit" class="w-full bg-[var(--bg-main)] text-white font-bold py-3 px-4 rounded-md hover:opacity-90 transition shadow-md">
-                        Kirim Ucapan & Konfirmasi
+                    <button type="submit" :disabled="isLoading" class="w-full bg-[var(--bg-main)] text-white font-bold py-3 px-4 rounded-md hover:opacity-90 transition shadow-md disabled:opacity-50" x-text="isLoading ? 'Mengirim...' : 'Kirim Ucapan & Konfirmasi'">
                     </button>
                 </form>
+
+                <!-- === TAMBAHAN DAFTAR UCAPAN DI SINI === -->
+                <div class="mt-10 border-t border-[var(--border-color)] pt-8">
+                    <h3 class="text-lg font-serif text-[var(--bg-main)] mb-4 text-center">Ucapan dari Sahabat & Keluarga</h3>
+                    
+                    <!-- Area Scroll Ucapan -->
+                    <div class="max-h-80 overflow-y-auto pr-2 space-y-4">
+                        
+                        <!-- Animasi Loading saat ngambil data -->
+                        <div x-show="isLoadingUcapan" class="text-center py-4 text-sm text-[var(--text-muted)]">
+                            <i class="fa-solid fa-spinner fa-spin mr-2"></i> Memuat ucapan...
+                        </div>
+
+                        <!-- Pesan jika kosong -->
+                        <div x-show="!isLoadingUcapan && ucapanList.length === 0" class="text-center py-4 text-sm text-[var(--text-muted)] italic">
+                            Belum ada ucapan. Jadilah yang pertama!
+                        </div>
+
+                        <!-- Looping Data Ucapan -->
+                        <template x-for="(item, index) in ucapanList" :key="index">
+                            <div class="bg-[var(--bg-light)] p-4 rounded-lg border border-[var(--border-color)] text-left">
+                                <div class="flex justify-between items-start mb-2">
+                                    <span class="font-bold text-sm text-[var(--bg-main)]" x-text="item.nama"></span>
+                                    <span class="text-[10px] px-2 py-1 rounded text-white" 
+                                          :class="item.kehadiran === 'Hadir' ? 'bg-green-600' : 'bg-red-500'" 
+                                          x-text="item.kehadiran">
+                                    </span>
+                                </div>
+                                <p class="text-xs text-[var(--text-muted)] leading-relaxed whitespace-pre-line" x-text="item.ucapan"></p>
+                            </div>
+                        </template>
+
+                    </div>
+                </div>
+                <!-- === AKHIR DAFTAR UCAPAN === -->
+
             </div>
-        </section>
 
         <!-- FOOTER -->
         <div class="relative bg-[var(--bg-dark)] text-white pb-10 pt-20 px-6 text-center">
@@ -381,7 +416,18 @@
                 isPlaying: false,
                 theme: 'default',
                 guestName: 'Tamu Undangan',
-                formNama: '',
+                
+                form: {
+                    nama: '',
+                    kehadiran: 'Hadir',
+                    ucapan: ''
+                },
+                isLoading: false, 
+                
+                // Variabel baru untuk Ucapan
+                ucapanList: [],
+                isLoadingUcapan: true, 
+
                 countdown: { days: 0, hours: 0, minutes: 0, seconds: 0 },
                 lightboxOpen: false,
                 lightboxImg: '',
@@ -391,14 +437,16 @@
                     const to = urlParams.get('to');
                     if (to) {
                         this.guestName = to;
-                        this.formNama = to;
+                        this.form.nama = to;
                     }
                     
                     const t = urlParams.get('theme');
                     if(t) this.theme = t;
                     
-                    // Panggil fungsi countdown di sini
                     this.startCountdown();
+                    
+                    // PANGGIL FUNGSI AMBIL UCAPAN SAAT WEB DIBUKA
+                    this.fetchUcapan();
                 },
                 
                 openInvitation() {
@@ -410,7 +458,6 @@
                             offset: 50
                         });
                     }, 800);
-                    
                     this.playMusic();
                 },
                 
@@ -473,15 +520,57 @@
                         }
                     });
                 },
+
+                // FUNGSI BARU UNTUK AMBIL DATA DARI GOOGLE SHEET
+                fetchUcapan() {
+                    const scriptURL = 'https://script.google.com/macros/s/AKfycbx7HK2YfSmpMyiQPgtNooR6mpsa9HUNyzQie6rKndwqhdlmYPebpH5JI-lI3g5mKb6L/exec';
+                    fetch(scriptURL)
+                        .then(response => response.json())
+                        .then(data => {
+                            this.ucapanList = data;
+                            this.isLoadingUcapan = false;
+                        })
+                        .catch(error => {
+                            console.error('Error fetching ucapan:', error);
+                            this.isLoadingUcapan = false;
+                        });
+                },
+
+                submitForm() {
+                    this.isLoading = true; 
+                    const scriptURL = 'https://script.google.com/macros/s/AKfycbx7HK2YfSmpMyiQPgtNooR6mpsa9HUNyzQie6rKndwqhdlmYPebpH5JI-lI3g5mKb6L/exec';
+                    const formData = new FormData();
+                    formData.append('Nama', this.form.nama);
+                    formData.append('Kehadiran', this.form.kehadiran);
+                    formData.append('Ucapan', this.form.ucapan);
+
+                    fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
+                        .then(() => {
+                            this.isLoading = false;
+                            Swal.fire({
+                                title: 'Berhasil!',
+                                text: 'Terima kasih atas ucapan dan konfirmasinya.',
+                                icon: 'success',
+                                confirmButtonColor: 'var(--bg-main)'
+                            });
+                            this.form.ucapan = ''; 
+                            
+                            // SETELAH KIRIM, LANGSUNG REFRESH DAFTAR UCAPAN
+                            this.isLoadingUcapan = true;
+                            this.fetchUcapan();
+                        })
+                        .catch(error => {
+                            this.isLoading = false;
+                            Swal.fire('Error!', 'Maaf terjadi kesalahan, silakan coba lagi.', 'error');
+                            console.error('Error!', error.message);
+                        });
+                },
                 
                 startCountdown() {
-                    // Penulisan tanggal diubah ke format ISO agar support di semua browser
                     const countDownDate = new Date("2026-08-15T08:00:00").getTime();
-                    
                     setInterval(() => {
                         const now = new Date().getTime();
                         const distance = countDownDate - now;
-                        
                         if (distance > 0) {
                             this.countdown.days = Math.floor(distance / (1000 * 60 * 60 * 24));
                             this.countdown.hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
